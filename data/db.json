@@ -1,0 +1,582 @@
+{
+  "users": [
+    {
+      "id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "email": "demo.candidate@careerpilot.ai",
+      "passwordHash": "5db378e71fd6117544dd943c8c05376e:45b7f3dd8cc55da880a8e6057985ef9d083634f16dbaeb8bfba960bb0e0c6b5adf895eba3ae307e7b7fad6e43759479d458950e66f76e4a8c8d23dd726523f11",
+      "createdAt": "2026-10-12T23:15:10.135Z"
+    },
+    {
+      "id": "121535cb-ae71-4644-a45a-18d735b0e861",
+      "email": "testcandidate@example.com",
+      "passwordHash": "74aa136dfdfeb7784403acb3a40489a7:4bc8925d384f5791e5b89311e935560f15302c19cae1862345035587c0673f53e53a9a839b62b54e61fd373017c2fb0b2475a6a70c7419fc97a961e531dee294",
+      "createdAt": "2026-10-12T23:15:22.458Z"
+    },
+    {
+      "id": "7e3d7cb6-b6e8-403b-9e98-e0aae024c60e",
+      "email": "srihasinireddy57@gmail.com",
+      "passwordHash": "2f1fb4cce139d2a33be45555405c8f43:68ca0d8267e8322acaff7fac2244cd6105f976a36ce58a6ab366c191e8da2ade6009e78353240979c61ce816acceeb231ebf63a3b68a69134fcf08869559fc9c",
+      "createdAt": "2026-10-12T23:23:21.678Z"
+    },
+    {
+      "id": "4f7d5079-e7b1-4da2-961f-a607c06c7252",
+      "email": "mvenkatvivek@gmail.com",
+      "passwordHash": "07ba1fdeb4b364a97ceeddf5824b072f:eda4be605b9dfc7e3cad4637c6681f77405abc6a46a47f26077678655a11661e799f3b904e4ee12e1a286221b84e81d816339f5c677a5c3037fa3cc4747702c6",
+      "createdAt": "2026-10-19T14:56:54.711Z"
+    }
+  ],
+  "profiles": [
+    {
+      "id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "full_name": "Alex Rivera",
+      "education_level": "B.S. in Computer Science, State University (2024)",
+      "current_role": "Associate Software Engineer",
+      "experience_level": "entry",
+      "target_roles": [
+        "Full Stack Engineer",
+        "Backend Software Engineer",
+        "AI Application Developer"
+      ],
+      "preferred_skills": [
+        "TypeScript",
+        "React",
+        "Node.js",
+        "PostgreSQL",
+        "Python",
+        "Docker"
+      ],
+      "career_goals": "Accelerate readiness for Mid-Level Software Engineer positions at modern product companies.",
+      "onboarding_completed": true,
+      "readiness_score": 68,
+      "created_at": "2026-10-12T23:15:10.135Z",
+      "updated_at": "2026-10-12T23:15:10.140Z"
+    },
+    {
+      "id": "121535cb-ae71-4644-a45a-18d735b0e861",
+      "full_name": "testcandidate",
+      "education_level": "Bachelor of Science in Computer Science",
+      "current_role": "Software Engineer / Student",
+      "experience_level": "entry",
+      "target_roles": [
+        "Full Stack Engineer",
+        "Backend Developer"
+      ],
+      "preferred_skills": [
+        "TypeScript",
+        "React",
+        "Node.js",
+        "PostgreSQL"
+      ],
+      "career_goals": "Land a software engineering role at a fast-growing tech firm.",
+      "onboarding_completed": false,
+      "readiness_score": 35,
+      "created_at": "2026-10-12T23:15:22.458Z",
+      "updated_at": "2026-10-12T23:15:22.458Z"
+    },
+    {
+      "id": "7e3d7cb6-b6e8-403b-9e98-e0aae024c60e",
+      "full_name": "Srihasini Reddy",
+      "education_level": "Bachelor of Technology in Computer Science",
+      "current_role": "Software Engineer",
+      "experience_level": "entry",
+      "target_roles": [
+        "Full Stack Engineer",
+        "Backend Developer",
+        "AI Application Developer"
+      ],
+      "preferred_skills": [
+        "TypeScript",
+        "React",
+        "Node.js",
+        "PostgreSQL",
+        "Docker",
+        "Python"
+      ],
+      "career_goals": "Accelerate readiness for top tech roles with ATS-optimized resumes and adaptive mock interviews.",
+      "onboarding_completed": true,
+      "readiness_score": 59,
+      "created_at": "2026-10-12T23:23:21.678Z",
+      "updated_at": "2026-10-12T23:24:28.772Z"
+    },
+    {
+      "id": "4f7d5079-e7b1-4da2-961f-a607c06c7252",
+      "full_name": "mvenkatvivek",
+      "education_level": "Bachelor of Science in Computer Science",
+      "current_role": "Software Engineer / Student",
+      "experience_level": "entry",
+      "target_roles": [
+        "Full Stack Engineer",
+        "Backend Developer"
+      ],
+      "preferred_skills": [
+        "TypeScript",
+        "React",
+        "Node.js",
+        "PostgreSQL"
+      ],
+      "career_goals": "Land a software engineering role at a fast-growing tech firm.",
+      "onboarding_completed": false,
+      "readiness_score": 35,
+      "created_at": "2026-10-19T14:56:54.711Z",
+      "updated_at": "2026-10-19T14:56:54.711Z"
+    }
+  ],
+  "resumes": [
+    {
+      "id": "e56787b9-32f3-43db-9759-c36702853ebb",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "file_name": "Alex_Rivera_Software_Engineer_Resume.pdf",
+      "file_size": 48200,
+      "storage_path": "demo_c25d1ce5-e611-4db6-abda-f15e0e040dde_resume.pdf",
+      "mime_type": "application/pdf",
+      "raw_text": "Alex Rivera\nEmail: alex.rivera@example.com | Phone: (555) 234-5678 | Location: San Francisco, CA\nLinkedIn: linkedin.com/in/alex-rivera-dev | GitHub: github.com/alexrivera\n\nPROFESSIONAL SUMMARY\nResults-driven software engineer with 1.5 years of experience building responsive full-stack applications with React, TypeScript, Node.js, and PostgreSQL. Passionate about clean architecture, test-driven development, and cloud deployments.\n\nWORK EXPERIENCE\nAssociate Software Engineer | CloudVibe Systems | June 2024 - Present\n• Designed and shipped RESTful API microservices in Node.js and TypeScript serving 40,000 daily requests.\n• Refactored customer onboarding flow using React and Tailwind CSS, increasing sign-up completion rate by 18%.\n• Collaborated in bi-weekly Agile sprints, writing Jest unit tests with 84% code coverage across core payment modules.\n• Worked with PostgreSQL database schema migrations and query optimizations to reduce response time.\n\nSoftware Engineering Intern | NextGen Labs | May 2023 - August 2023\n• Built an internal reporting dashboard in React and Express to monitor server telemetry and error logs.\n• Integrated Docker container workflows into local development setup for team members.\n\nTECHNICAL SKILLS\nLanguages: TypeScript, JavaScript, Python, SQL, HTML5, CSS3\nFrameworks & Libraries: React, Node.js, Express, Tailwind CSS, Jest\nDatabases & Cloud: PostgreSQL, SQLite, Redis, Docker, Git, Linux\nCore Competencies: REST APIs, System Design fundamentals, Agile/Scrum, CI/CD\n\nEDUCATION\nB.S. in Computer Science | State University, GPA: 3.8/4.0 | Graduated May 2024\n\nPROJECTS\n• DevPulse Analytics: Real-time telemetry dashboard using React, WebSocket, and Express.\n• TaskMaster Pro: Full-stack task management application with role-based access control and PostgreSQL.",
+      "created_at": "2026-10-12T23:15:10.137Z",
+      "updated_at": "2026-10-12T23:15:10.137Z"
+    },
+    {
+      "id": "5a771849-b8fc-4fc8-aebc-91c361e9ffc2",
+      "user_id": "7e3d7cb6-b6e8-403b-9e98-e0aae024c60e",
+      "file_name": "Srihasini_Generated_Resume.txt",
+      "file_size": 1376,
+      "storage_path": "/app/applet/data/storage/resumes/7e3d7cb6-b6e8-403b-9e98-e0aae024c60e_1791847466821_Srihasini_Generated_Resume.txt",
+      "mime_type": "text/plain",
+      "raw_text": "Srihasini Reddy\nsrihasinireddy57@gmail.com | (555) 234-5678 | Remote / Hybrid\n\nPROFESSIONAL SUMMARY\nResults-driven Full Stack Software Engineer with demonstrated proficiency across TypeScript, React, Node.js, PostgreSQL. Passionate about building resilient, performant full-stack systems, optimizing data workflows, and delivering high-impact user experiences.\n\nTECHNICAL SKILLS\n• Languages & Core: TypeScript, React, Node.js\n• Frameworks & Libraries: PostgreSQL, Docker, REST APIs\n• Databases & Cloud: PostgreSQL, Docker\n• Developer Practices: Agile/Scrum, CI/CD, Test-Driven Development, REST APIs\n\nPROFESSIONAL EXPERIENCE\nAssociate Full Stack Software Engineer | CloudVibe Systems | 2024 - Present\n• Engineered scalable REST microservices with TypeScript serving 45,000+ daily requests with 99.9% uptime.\n• Refactored user interaction workflows, reducing interface response latency by 28% across high-traffic views.\n• Implemented automated integration tests with 85% coverage, reducing production regression incidents.\n\nSoftware Project Contributor | OpenSource Initiative | 2023 - 2024\n• Architected data integration pipeline leveraging React, accelerating query throughput by 32%.\n• Collaborated with distributed engineering team in bi-weekly sprints to deliver modular features.\n\nEDUCATION\nBachelor of Technology in Computer Science | University | 2024",
+      "created_at": "2026-10-12T23:24:26.822Z",
+      "updated_at": "2026-10-12T23:24:26.822Z"
+    }
+  ],
+  "resume_analyses": [
+    {
+      "id": "b5c5ad79-47cb-4258-8874-e88e951a3760",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "resume_id": "e56787b9-32f3-43db-9759-c36702853ebb",
+      "parsed_profile": {
+        "contact": {
+          "name": "Alex Rivera",
+          "email": "alex.rivera@example.com",
+          "location": "San Francisco, CA"
+        },
+        "summary": "Results-driven software engineer with 1.5 years of experience building responsive full-stack applications.",
+        "education": [
+          {
+            "institution": "State University",
+            "degree": "B.S.",
+            "field": "Computer Science",
+            "graduationYear": "2024",
+            "gpa": "3.8/4.0"
+          }
+        ],
+        "skills": {
+          "technical": [
+            "TypeScript",
+            "JavaScript",
+            "Python",
+            "SQL"
+          ],
+          "frameworks": [
+            "React",
+            "Node.js",
+            "Express",
+            "Tailwind CSS",
+            "Jest"
+          ],
+          "tools": [
+            "Git",
+            "Docker",
+            "PostgreSQL",
+            "Linux"
+          ],
+          "soft": [
+            "Agile/Scrum",
+            "Collaboration",
+            "Problem Solving"
+          ]
+        },
+        "work_experience": [
+          {
+            "title": "Associate Software Engineer",
+            "company": "CloudVibe Systems",
+            "duration": "June 2024 - Present",
+            "bulletPoints": [
+              "Designed and shipped RESTful API microservices in Node.js and TypeScript serving 40,000 daily requests.",
+              "Refactored customer onboarding flow using React and Tailwind CSS, increasing sign-up completion rate by 18%.",
+              "Collaborated in bi-weekly Agile sprints, writing Jest unit tests with 84% code coverage."
+            ]
+          }
+        ],
+        "projects": [
+          {
+            "name": "DevPulse Analytics",
+            "description": "Real-time telemetry dashboard using React and WebSocket",
+            "technologies": [
+              "React",
+              "WebSocket",
+              "Express"
+            ]
+          }
+        ],
+        "certifications": [
+          "AWS Certified Cloud Practitioner (In-Progress)"
+        ],
+        "achievements": [
+          "Dean’s Honor List 2022-2024"
+        ]
+      },
+      "strengths": [
+        "Strong full-stack stack alignment with TypeScript, React, and Node.js microservices.",
+        "Quantified impact demonstrated in onboarding flow optimization (18% boost) and request volume.",
+        "Solid engineering fundamentals including Jest unit testing and Docker containerization."
+      ],
+      "weaknesses": [
+        "Could highlight more distributed systems experience or asynchronous message queues.",
+        "Project descriptions can detail system scaling constraints and load testing."
+      ],
+      "suggestions": [
+        {
+          "id": "sug-1",
+          "section": "Work Experience",
+          "original": "Worked with PostgreSQL database schema migrations and query optimizations to reduce response time.",
+          "suggested": "Optimized PostgreSQL queries and normalized schema structures, lowering database latency by 25% across high-traffic endpoints.",
+          "reason": "Replaces passive wording with active technical impact and specific optimization metrics.",
+          "status": "pending"
+        },
+        {
+          "id": "sug-2",
+          "section": "Projects",
+          "original": "TaskMaster Pro: Full-stack task management application with role-based access control and PostgreSQL.",
+          "suggested": "Architected TaskMaster Pro: Production-grade productivity platform featuring granular RBAC, JWT session security, and relational data modeling.",
+          "reason": "Explicitly spotlights security architectures and system robustness.",
+          "status": "pending"
+        }
+      ],
+      "quantified_improvements": [
+        {
+          "original": "Built an internal reporting dashboard in React and Express",
+          "improved": "Delivered reporting dashboard in React/Express adopted by 15+ internal engineers for daily server telemetry",
+          "metricType": "Adoption / User Reach"
+        }
+      ],
+      "score_breakdown": {
+        "clarity": 90,
+        "impact": 82,
+        "skillsDepth": 85,
+        "structure": 88
+      },
+      "ats_score": 86,
+      "created_at": "2026-10-12T23:15:10.137Z"
+    },
+    {
+      "id": "afc6886f-24c7-41bb-bd97-8388b4f316f9",
+      "user_id": "7e3d7cb6-b6e8-403b-9e98-e0aae024c60e",
+      "resume_id": "5a771849-b8fc-4fc8-aebc-91c361e9ffc2",
+      "parsed_profile": {
+        "contact": {
+          "name": "Srihasini Reddy",
+          "email": "srihasinireddy57@gmail.com",
+          "phone": "(555) 234-5678",
+          "location": "Remote / Hybrid"
+        },
+        "summary": "Results-driven Full Stack Software Engineer with demonstrated proficiency across TypeScript, React, Node.js, PostgreSQL.",
+        "education": [
+          {
+            "institution": "University",
+            "degree": "Bachelor of Technology in Computer Science",
+            "field": "Computer Science",
+            "graduationYear": "2024"
+          }
+        ],
+        "skills": {
+          "technical": [
+            "TypeScript",
+            "React",
+            "Node.js",
+            "PostgreSQL"
+          ],
+          "frameworks": [
+            "Docker",
+            "REST APIs"
+          ],
+          "tools": [
+            "Git",
+            "Docker",
+            "CI/CD"
+          ],
+          "soft": [
+            "Collaboration",
+            "Problem Solving",
+            "Agile/Scrum"
+          ]
+        },
+        "work_experience": [
+          {
+            "title": "Associate Full Stack Software Engineer",
+            "company": "CloudVibe Systems",
+            "duration": "2024 - Present",
+            "bulletPoints": [
+              "Engineered scalable REST microservices with TypeScript serving 45,000+ daily requests.",
+              "Refactored user interaction workflows, reducing interface response latency by 28%.",
+              "Implemented automated integration tests with 85% coverage."
+            ]
+          }
+        ],
+        "projects": [
+          {
+            "name": "Full Stack Software Engineer Showcase Application",
+            "description": "Full-stack application engineered with TypeScript, React, Node.js featuring responsive architecture.",
+            "technologies": [
+              "TypeScript",
+              "React",
+              "Node.js",
+              "PostgreSQL"
+            ]
+          }
+        ],
+        "certifications": []
+      },
+      "strengths": [
+        "Identified key educational background and fundamental software tooling."
+      ],
+      "weaknesses": [
+        "Some bullet points could benefit from stronger action verbs and demonstrated scope."
+      ],
+      "suggestions": [
+        {
+          "id": "sug-1",
+          "section": "Projects",
+          "original": "Worked on web app using React and Node.",
+          "suggested": "Architected and deployed a responsive web application leveraging React and Node.js RESTful APIs.",
+          "reason": "Highlights technical leadership and active engineering verbs.",
+          "status": "pending"
+        }
+      ],
+      "quantified_improvements": [
+        {
+          "original": "Improved performance of the database",
+          "improved": "Optimized PostgreSQL queries, reducing endpoint latency by approximately [X]%",
+          "metricType": "Latency / Efficiency"
+        }
+      ],
+      "score_breakdown": {
+        "clarity": 75,
+        "impact": 70,
+        "skillsDepth": 75,
+        "structure": 80
+      },
+      "ats_score": 91,
+      "created_at": "2026-10-12T23:24:28.772Z"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "48e01fc5-4219-4ccf-88fe-ed384edb26c6",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "title": "Full Stack Engineer (TypeScript & Cloud)",
+      "company": "Veloce Data Labs",
+      "description": "We are seeking an energetic Full Stack Engineer to build next-generation data applications.\nResponsibilities:\n- Build modular React interfaces and robust Node.js / TypeScript microservices.\n- Design performant PostgreSQL schemas and implement caching strategies.\n- Maintain CI/CD pipelines, containerize services using Docker, and contribute to code reviews.\nRequirements:\n- 1-3 years of full-stack engineering experience.\n- Strong proficiency in TypeScript, React, Node.js, and SQL/PostgreSQL.\n- Familiarity with Docker and Git workflows.\n- Nice to have: GraphQL, Redis, AWS services.",
+      "parsed_requirements": {
+        "required_skills": [
+          "TypeScript",
+          "React",
+          "Node.js",
+          "PostgreSQL",
+          "Docker",
+          "Git"
+        ],
+        "preferred_skills": [
+          "GraphQL",
+          "Redis",
+          "AWS",
+          "CI/CD"
+        ],
+        "experience_years": "1-3 years",
+        "education_level": "B.S. in Computer Science or equivalent experience",
+        "responsibilities": [
+          "Build modular React interfaces and robust Node.js microservices",
+          "Design performant PostgreSQL schemas",
+          "Maintain CI/CD pipelines and Docker containerization"
+        ],
+        "competencies": [
+          "System Design",
+          "Code Reviews",
+          "Collaborative Problem Solving"
+        ]
+      },
+      "created_at": "2026-10-12T23:15:10.138Z"
+    }
+  ],
+  "job_matches": [
+    {
+      "id": "d85ba493-8f10-427c-bb4c-c59b0277f1ad",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "resume_id": "e56787b9-32f3-43db-9759-c36702853ebb",
+      "job_id": "48e01fc5-4219-4ccf-88fe-ed384edb26c6",
+      "match_score": 82,
+      "evidenced_skills": [
+        "TypeScript",
+        "React",
+        "Node.js",
+        "PostgreSQL",
+        "Docker",
+        "Git"
+      ],
+      "missing_skills": [
+        "GraphQL",
+        "Redis"
+      ],
+      "partial_skills": [
+        "AWS (AWS Cloud Practitioner noted in progress)",
+        "CI/CD"
+      ],
+      "experience_alignment": "Strong direct match with 1.5 years experience in React/Node/PostgreSQL and unit testing.",
+      "scoring_breakdown": {
+        "required_skills_score": 100,
+        "preferred_skills_score": 50,
+        "experience_score": 85,
+        "formula_explanation": "Formula: (Required Skills × 55%) + (Preferred Skills × 20%) + (Experience & Project Alignment × 25%)."
+      },
+      "recommended_improvements": [
+        "Add a sample or personal project demonstrating Redis caching or GraphQL querying.",
+        "Specify CI/CD pipeline automation tools used in previous deployments."
+      ],
+      "created_at": "2026-10-12T23:15:10.138Z"
+    }
+  ],
+  "skill_goals": [
+    {
+      "id": "390b7814-37ff-437e-bcc5-6ca2a3ea0e20",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "job_id": "48e01fc5-4219-4ccf-88fe-ed384edb26c6",
+      "skill_name": "Redis In-Memory Caching",
+      "priority": "high",
+      "why_matters": "Essential for high-throughput microservices and reducing PostgreSQL read load.",
+      "candidate_evidence": "Solid understanding of backend request life cycles and relational databases.",
+      "learning_objective": "Implement Redis cache-aside pattern with TTL invalidation on REST endpoints.",
+      "recommended_exercise": "Build a Node.js caching middleware using ioredis for frequent database queries.",
+      "status": "in_progress",
+      "sort_order": 1,
+      "created_at": "2026-10-12T23:15:10.138Z",
+      "updated_at": "2026-10-12T23:15:10.138Z"
+    },
+    {
+      "id": "063e7404-3369-448f-abf4-1897b767f883",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "job_id": "48e01fc5-4219-4ccf-88fe-ed384edb26c6",
+      "skill_name": "GraphQL API Design",
+      "priority": "medium",
+      "why_matters": "Enables flexible data fetching and minimizes network over-fetching in complex UI views.",
+      "candidate_evidence": "Deep proficiency in RESTful design and TypeScript typing.",
+      "learning_objective": "Create a GraphQL schema with Apollo Server and TypeScript resolvers.",
+      "recommended_exercise": "Expose a GraphQL endpoint querying existing PostgreSQL tables with field-level resolvers.",
+      "status": "not_started",
+      "sort_order": 2,
+      "created_at": "2026-10-12T23:15:10.139Z",
+      "updated_at": "2026-10-12T23:15:10.139Z"
+    }
+  ],
+  "interview_sessions": [
+    {
+      "id": "8a46871c-da04-4bd5-8f81-a265dd49df26",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "resume_id": "e56787b9-32f3-43db-9759-c36702853ebb",
+      "job_id": "48e01fc5-4219-4ccf-88fe-ed384edb26c6",
+      "target_role": "Full Stack Engineer",
+      "interview_type": "technical",
+      "difficulty": "mid",
+      "total_questions": 3,
+      "status": "completed",
+      "overall_score": 88,
+      "strengths": [
+        "Clear explanation of database diagnostics and indexing",
+        "Structured answers"
+      ],
+      "areas_to_improve": [
+        "Expand on distributed state handling and asynchronous task queues"
+      ],
+      "created_at": "2026-10-12T23:15:10.139Z",
+      "summary": "Strong technical communication with practical system debugging experience.",
+      "completed_at": "2026-10-12T23:15:10.140Z"
+    }
+  ],
+  "interview_questions": [
+    {
+      "id": "15229c7b-7f45-4ab4-ae7e-2d6426046571",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "session_id": "8a46871c-da04-4bd5-8f81-a265dd49df26",
+      "question_number": 1,
+      "question_text": "In your resume, you mentioned optimizing PostgreSQL queries at CloudVibe Systems. How did you identify the slow queries, and what indexing or query structure changes did you make?",
+      "question_type": "technical",
+      "target_competency": "Database Optimization & Diagnostics",
+      "context_clue": "Focus on query profiling (EXPLAIN ANALYZE) and index strategies.",
+      "created_at": "2026-10-12T23:15:10.139Z"
+    }
+  ],
+  "interview_answers": [
+    {
+      "id": "9f6f7ede-7da2-4545-ab89-af03dc7e8cc7",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "session_id": "8a46871c-da04-4bd5-8f81-a265dd49df26",
+      "question_id": "15229c7b-7f45-4ab4-ae7e-2d6426046571",
+      "answer_text": "We monitored slow endpoints in our logs and used EXPLAIN ANALYZE on our PostgreSQL queries. We identified sequential scans on our payments table where a composite index on user_id and created_at was missing. After adding the B-tree index and rewriting a subquery into a JOIN, query latency dropped significantly.",
+      "created_at": "2026-10-12T23:15:10.140Z"
+    }
+  ],
+  "interview_feedback": [
+    {
+      "id": "f021905a-948d-467a-a909-8c6a97fa30b4",
+      "answer_id": "9f6f7ede-7da2-4545-ab89-af03dc7e8cc7",
+      "session_id": "8a46871c-da04-4bd5-8f81-a265dd49df26",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "score": 88,
+      "what_went_well": "Demonstrated precise knowledge of EXPLAIN ANALYZE, composite B-tree indexing, and converting subqueries to JOINs.",
+      "what_to_improve": "Could mention monitoring index write overhead or query planning cache implications.",
+      "missing_points": [
+        "Index maintenance costs and connection pooling considerations"
+      ],
+      "suggested_approach": "Excellent answer. Highlighting connection pooling or pg_stat_statements adds senior-level depth.",
+      "follow_up_tip": "Ready to tackle deeper concurrency questions.",
+      "created_at": "2026-10-12T23:15:10.140Z"
+    }
+  ],
+  "activity_events": [
+    {
+      "id": "9a72316e-534b-45ea-9c90-6763e7dd9e7b",
+      "user_id": "7e3d7cb6-b6e8-403b-9e98-e0aae024c60e",
+      "event_type": "resume_analyzed",
+      "event_title": "Analyzed resume for target role alignment",
+      "metadata": {
+        "ats_score": 91
+      },
+      "created_at": "2026-10-12T23:24:28.772Z"
+    },
+    {
+      "id": "35186d64-9ea3-4dfb-be01-ce4a31c13609",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "event_type": "interview_completed",
+      "event_title": "Completed technical mock interview for Full Stack Engineer",
+      "metadata": {
+        "score": 88
+      },
+      "created_at": "2026-10-12T23:15:10.140Z"
+    },
+    {
+      "id": "bdf02f98-f6a8-4d72-bdf8-3c1eb8a4e8e2",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "event_type": "job_matched",
+      "event_title": "Matched resume against \"Full Stack Engineer (TypeScript & Cloud)\"",
+      "metadata": {
+        "match_score": 82
+      },
+      "created_at": "2026-10-12T23:15:10.138Z"
+    },
+    {
+      "id": "8d1aa40b-da1a-4f75-bc2c-b943a24b119d",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "event_type": "resume_analyzed",
+      "event_title": "Analyzed resume for target role alignment",
+      "metadata": {
+        "ats_score": 86
+      },
+      "created_at": "2026-10-12T23:15:10.137Z"
+    }
+  ]
+}
