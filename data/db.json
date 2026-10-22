@@ -495,6 +495,19 @@
       "created_at": "2026-10-12T23:15:10.139Z",
       "summary": "Strong technical communication with practical system debugging experience.",
       "completed_at": "2026-10-12T23:15:10.140Z"
+    },
+    {
+      "id": "b9682493-d561-4002-a9b8-ed244a0b740b",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "target_role": "Full Stack Engineer",
+      "interview_type": "technical",
+      "difficulty": "mid",
+      "total_questions": 3,
+      "status": "in_progress",
+      "overall_score": 0,
+      "strengths": [],
+      "areas_to_improve": [],
+      "created_at": "2026-10-22T12:31:56.199Z"
     }
   ],
   "interview_questions": [
@@ -508,6 +521,39 @@
       "target_competency": "Database Optimization & Diagnostics",
       "context_clue": "Focus on query profiling (EXPLAIN ANALYZE) and index strategies.",
       "created_at": "2026-10-12T23:15:10.139Z"
+    },
+    {
+      "id": "9ac67c8f-0a21-4bbc-8fff-a6c14715ed68",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "session_id": "b9682493-d561-4002-a9b8-ed244a0b740b",
+      "question_number": 1,
+      "question_text": "In your work as a Full Stack Engineer, how do you design and structure scalable systems to ensure high performance, fault tolerance, and clean separation of concerns? Walk me through a concrete architecture you implemented.",
+      "question_type": "technical",
+      "target_competency": "Core Architecture & System Design",
+      "context_clue": "Top 3 Priority #1: Interviewers evaluate your architectural reasoning, data flow clarity, and technology stack selection.",
+      "created_at": "2026-10-22T12:31:57.503Z"
+    },
+    {
+      "id": "9fe426a7-d7d8-4984-a8cd-5a7aae07ef7d",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "session_id": "b9682493-d561-4002-a9b8-ed244a0b740b",
+      "question_number": 2,
+      "question_text": "Can you describe a complex production incident, performance bottleneck, or unexpected system failure you encountered in a Full Stack Engineer role? How did you isolate root cause and what trade-offs did you navigate?",
+      "question_type": "technical",
+      "target_competency": "Production Troubleshooting & Trade-Offs",
+      "context_clue": "Top 3 Priority #2: Evaluates your debugging methodology, metric observability, and poise under operational pressure.",
+      "created_at": "2026-10-22T12:32:07.622Z"
+    },
+    {
+      "id": "b18381c2-0d56-4487-8b5b-e4c0f46c5848",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "session_id": "b9682493-d561-4002-a9b8-ed244a0b740b",
+      "question_number": 3,
+      "question_text": "Tell me about a situation where you had a significant architectural disagreement with a teammate or technical lead regarding a critical full-stack design choice under a tight deadline. Walk me through the Situation, the Task at hand, the specific Actions you took to evaluate options and build consensus, and the ultimate Result for the project and codebase.",
+      "question_type": "technical",
+      "target_competency": "Technical Conflict Resolution & Engineering Trade-offs",
+      "context_clue": "Interviewers ask this to assess your maturity, communication, and pragmatic decision-making. Top candidates avoid dogma, ground arguments in verifiable metrics/user impact, demonstrate willingness to commit once a decision is made, and maintain productive cross-functional relationships under pressure.",
+      "created_at": "2026-10-22T12:32:27.647Z"
     }
   ],
   "interview_answers": [
@@ -518,6 +564,22 @@
       "question_id": "15229c7b-7f45-4ab4-ae7e-2d6426046571",
       "answer_text": "We monitored slow endpoints in our logs and used EXPLAIN ANALYZE on our PostgreSQL queries. We identified sequential scans on our payments table where a composite index on user_id and created_at was missing. After adding the B-tree index and rewriting a subquery into a JOIN, query latency dropped significantly.",
       "created_at": "2026-10-12T23:15:10.140Z"
+    },
+    {
+      "id": "af83d06b-a272-46f9-9381-fc99ac485db9",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "session_id": "b9682493-d561-4002-a9b8-ed244a0b740b",
+      "question_id": "9ac67c8f-0a21-4bbc-8fff-a6c14715ed68",
+      "answer_text": "I designed a decoupled full-stack architecture using React and Tailwind on the client, interfacing with a Node.js TypeScript API gateway. Behind the gateway, PostgreSQL serves persistent transactional records while Redis provides in-memory session and query caching, which reduced database read contention by 40%.",
+      "created_at": "2026-10-22T12:32:06.605Z"
+    },
+    {
+      "id": "35eff81f-348f-470d-af07-a4c9fd8e7d0c",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "session_id": "b9682493-d561-4002-a9b8-ed244a0b740b",
+      "question_id": "9fe426a7-d7d8-4984-a8cd-5a7aae07ef7d",
+      "answer_text": "During a flash-sale event, our payment confirmation webhook began throwing 504 timeouts due to database lock contention. I inspected the slow query logs, identified unindexed foreign keys on the order items table, and temporarily implemented exponential backoff on the queue while deploying an index migration with concurrent indexing, bringing p99 latency back under 120ms.",
+      "created_at": "2026-10-22T12:32:15.622Z"
     }
   ],
   "interview_feedback": [
@@ -535,6 +597,48 @@
       "suggested_approach": "Excellent answer. Highlighting connection pooling or pg_stat_statements adds senior-level depth.",
       "follow_up_tip": "Ready to tackle deeper concurrency questions.",
       "created_at": "2026-10-12T23:15:10.140Z"
+    },
+    {
+      "id": "e7d45be0-b5b3-4003-aef3-bf5a9c02c8a1",
+      "answer_id": "af83d06b-a272-46f9-9381-fc99ac485db9",
+      "session_id": "b9682493-d561-4002-a9b8-ed244a0b740b",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "score": 75,
+      "what_went_well": "Addressed the core intent of the question with clear personal perspective.",
+      "what_to_improve": "Include more specific technical decisions and quantify the final impact.",
+      "missing_points": [
+        "Discussion of alternative approaches or trade-offs considered"
+      ],
+      "suggested_approach": "Frame the problem context first, explain your direct implementation role, and close with measurable impact.",
+      "star_breakdown": {
+        "situation": "Context described",
+        "task": "Objective identified",
+        "action": "Steps taken",
+        "result": "Outcome achieved"
+      },
+      "follow_up_tip": "Practice grounding answers in the STAR format for tighter impact.",
+      "created_at": "2026-10-22T12:32:06.605Z"
+    },
+    {
+      "id": "3676c4e7-6fb7-4ec9-94ef-0a20e1e1eaba",
+      "answer_id": "35eff81f-348f-470d-af07-a4c9fd8e7d0c",
+      "session_id": "b9682493-d561-4002-a9b8-ed244a0b740b",
+      "user_id": "c25d1ce5-e611-4db6-abda-f15e0e040dde",
+      "score": 75,
+      "what_went_well": "Addressed the core intent of the question with clear personal perspective.",
+      "what_to_improve": "Include more specific technical decisions and quantify the final impact.",
+      "missing_points": [
+        "Discussion of alternative approaches or trade-offs considered"
+      ],
+      "suggested_approach": "Frame the problem context first, explain your direct implementation role, and close with measurable impact.",
+      "star_breakdown": {
+        "situation": "Context described",
+        "task": "Objective identified",
+        "action": "Steps taken",
+        "result": "Outcome achieved"
+      },
+      "follow_up_tip": "Practice grounding answers in the STAR format for tighter impact.",
+      "created_at": "2026-10-22T12:32:15.622Z"
     }
   ],
   "activity_events": [

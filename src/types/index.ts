@@ -188,6 +188,19 @@ export interface InterviewFeedback {
   created_at: string;
 }
 
+export interface AnswerAccuracyPrediction {
+  accuracyScore: number;
+  accuracyLevel: string;
+  technicalAccuracy: number;
+  completeness: number;
+  structureClarity: number;
+  interviewerPerception: string;
+  strengthsIdentified: string[];
+  missingKeywords: string[];
+  improvementSuggestions: string[];
+  elevatedAnswerSnippet?: string;
+}
+
 export interface ActivityEvent {
   id: string;
   user_id: string;

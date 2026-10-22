@@ -1020,6 +1020,31 @@ app.post('/api/interviews/sessions', requireAuth, async (req: AuthenticatedReque
   }
 });
 
+// Predict Accuracy of Draft Interview Answer
+app.post('/api/interviews/predict-accuracy', requireAuth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { questionText, answerText, targetRole, interviewType, difficulty, targetCompetency } = req.body;
+    if (!questionText || !answerText || !answerText.trim()) {
+      res.status(400).json({ error: 'Question text and answer draft are required to predict accuracy.' });
+      return;
+    }
+
+    const prediction = await gemini.predictAnswerAccuracy(
+      questionText,
+      answerText.trim(),
+      targetRole || 'Software Engineer',
+      interviewType || 'technical',
+      difficulty || 'mid',
+      targetCompetency
+    );
+
+    res.json({ prediction });
+  } catch (err: any) {
+    console.error('Accuracy prediction error:', err);
+    res.status(500).json({ error: 'Failed to predict answer accuracy.' });
+  }
+});
+
 app.post('/api/interviews/sessions/:id/submit-answer', requireAuth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { questionId, answerText } = req.body;

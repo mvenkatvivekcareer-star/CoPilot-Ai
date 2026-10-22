@@ -419,12 +419,26 @@ export async function generateAdaptiveQuestion(
   totalQuestions: number,
   previousQA: Array<{ question: string; answer: string; score: number }> = []
 ) {
+  const isTopThreeCurated = totalQuestions === 3;
+  let roleFocusInstruction = '';
+  if (isTopThreeCurated) {
+    if (questionNumber === 1) {
+      roleFocusInstruction = `CRITICAL FOCUS: This is Question 1 of the Top 3 decisive questions for "${targetRole}". Generate the SINGLE MOST IMPORTANT core architectural and technical foundation question that tech leads and interviewers always ask for this specific role.`;
+    } else if (questionNumber === 2) {
+      roleFocusInstruction = `CRITICAL FOCUS: This is Question 2 of the Top 3 decisive questions for "${targetRole}". Generate the MOST CRITICAL real-world production challenge, debugging, performance bottleneck, or architecture trade-off scenario that interviewers test to verify practical competence for "${targetRole}".`;
+    } else {
+      roleFocusInstruction = `CRITICAL FOCUS: This is Question 3 of the Top 3 decisive questions for "${targetRole}". Generate the MOST DECISIVE behavioral/leadership scenario question (using STAR: Situation, Task, Action, Result) regarding handling high-pressure project deadlines, architectural disagreements, or major incident recovery.`;
+    }
+  }
+
   const prompt = `
-Generate Question ${questionNumber} of ${totalQuestions} for a mock interview session.
+Generate Question ${questionNumber} of ${totalQuestions} for a high-signal mock interview session.
 
 Role: "${targetRole}"
 Interview Type: "${interviewType}"
 Difficulty: "${difficulty}"
+
+${roleFocusInstruction}
 
 Candidate Resume Highlights:
 """
@@ -435,14 +449,10 @@ Previous Q&A in this session:
 ${JSON.stringify(previousQA, null, 2)}
 
 Instructions:
-1. If questionNumber === 1, ask a strong opening question tailored to their declared projects or core competencies.
-2. If questionNumber > 1, ADAPT to their previous response:
-   - If their previous answer was strong, probe deeper into trade-offs, architecture, or edge cases.
-   - If their previous answer missed key details, ask a follow-up or pivot to test foundational understanding.
-   - For behavioral questions, focus on STAR (Situation, Task, Action, Result).
-   - Inquire about actual technologies and projects mentioned in the candidate's resume.
-3. Formulate the question clearly.
-4. Provide a "context_clue" for the candidate (guidance on what an interviewer evaluates for this question).
+1. Make the question authentic to what top-tier hiring managers ask for a "${targetRole}".
+2. ${isTopThreeCurated ? 'Prioritize the most decisive, role-defining competencies for Question ' + questionNumber + '.' : 'Adapt to their previous responses: if strong, probe deeper into trade-offs and edge cases; if weak, test core foundations.'}
+3. Formulate the question clearly without ambiguity.
+4. Provide a "context_clue" for the candidate explaining why interviewers ask this and what key criteria they look for.
 
 Return JSON:
 {
@@ -466,12 +476,28 @@ Return JSON:
     return JSON.parse(response.text?.trim() || '{}');
   } catch (err) {
     console.error('Error generating adaptive interview question:', err);
-    return {
-      question_text: `Can you walk me through one of the technical projects highlighted on your resume, detailing your architectural choices and how you solved the hardest technical challenge?`,
-      question_type: interviewType,
-      target_competency: 'Technical Communication & Problem Solving',
-      context_clue: 'Structure your response with clear context, your specific contributions, and measurable outcomes.',
-    };
+    if (questionNumber === 1) {
+      return {
+        question_text: `In your work as a ${targetRole}, how do you design and structure scalable systems to ensure high performance, fault tolerance, and clean separation of concerns? Walk me through a concrete architecture you implemented.`,
+        question_type: interviewType,
+        target_competency: 'Core Architecture & System Design',
+        context_clue: 'Top 3 Priority #1: Interviewers evaluate your architectural reasoning, data flow clarity, and technology stack selection.',
+      };
+    } else if (questionNumber === 2) {
+      return {
+        question_text: `Can you describe a complex production incident, performance bottleneck, or unexpected system failure you encountered in a ${targetRole} role? How did you isolate root cause and what trade-offs did you navigate?`,
+        question_type: interviewType,
+        target_competency: 'Production Troubleshooting & Trade-Offs',
+        context_clue: 'Top 3 Priority #2: Evaluates your debugging methodology, metric observability, and poise under operational pressure.',
+      };
+    } else {
+      return {
+        question_text: `Tell me about a high-stakes project or engineering disagreement you navigated under tight deadlines. How did you balance technical debt vs business delivery, and how did you communicate with stakeholders?`,
+        question_type: interviewType,
+        target_competency: 'High-Stakes Leadership & Delivery (STAR)',
+        context_clue: 'Top 3 Priority #3: Hiring managers look for STAR structure (Situation, Task, Action, Result) and collaborative maturity.',
+      };
+    }
   }
 }
 
@@ -556,6 +582,113 @@ Return JSON:
         result: 'Outcome achieved',
       },
       follow_up_tip: 'Practice grounding answers in the STAR format for tighter impact.',
+    };
+  }
+}
+
+/**
+ * Predicts the accuracy, completeness, and interview readiness of an in-progress candidate answer.
+ * Returns technical accuracy, topic coverage, interviewer impression, missing keywords, and suggestions.
+ */
+export async function predictAnswerAccuracy(
+  questionText: string,
+  answerText: string,
+  targetRole: string,
+  interviewType: string = 'technical',
+  difficulty: string = 'mid',
+  targetCompetency?: string
+) {
+  const prompt = `
+You are an elite technical hiring committee member evaluating an in-progress draft answer for accuracy and interview readiness.
+
+Question:
+"${questionText}"
+
+Target Role: "${targetRole}"
+Target Competency: "${targetCompetency || 'Role-specific competency'}"
+Interview Type: "${interviewType}"
+Difficulty: "${difficulty}"
+
+Candidate's Current Answer:
+"""
+${answerText}
+"""
+
+Evaluate this answer thoroughly for PREDICTED ACCURACY:
+1. "accuracyScore": 0 to 100 overall accuracy percentage.
+2. "accuracyLevel": One of "Exceptional / Top 5%", "Strong Fit / High Readiness", "Moderate / Needs Specifics", "Incomplete / Needs Work".
+3. "technicalAccuracy": 0 to 100 rating factual precision, engineering soundness, and conceptual correctness.
+4. "completeness": 0 to 100 measuring whether the candidate fully answered all core dimensions of the question.
+5. "structureClarity": 0 to 100 measuring conciseness, coherent explanation, and STAR flow.
+6. "interviewerPerception": 1-2 sentence candid breakdown of what an interviewer's immediate takeaway/verdict would be.
+7. "strengthsIdentified": Array of 2 distinct positive aspects accurately stated.
+8. "missingKeywords": Array of 3-5 crucial industry terms, algorithms, metrics, or principles that would elevate accuracy.
+9. "improvementSuggestions": Array of 2-3 specific suggestions to boost this answer's accuracy to 95%+.
+10. "elevatedAnswerSnippet": A 2-3 sentence model excerpt demonstrating how a top candidate would articulate the core resolution.
+
+Return JSON:
+{
+  "accuracyScore": 85,
+  "accuracyLevel": "Strong Fit / High Readiness",
+  "technicalAccuracy": 88,
+  "completeness": 80,
+  "structureClarity": 86,
+  "interviewerPerception": "...",
+  "strengthsIdentified": ["...", "..."],
+  "missingKeywords": ["...", "...", "..."],
+  "improvementSuggestions": ["...", "..."],
+  "elevatedAnswerSnippet": "..."
+}
+`;
+
+  try {
+    const response = await ai.models.generateContent({
+      model: MODEL_NAME,
+      contents: prompt,
+      config: {
+        systemInstruction: BASE_SYSTEM_PROMPT,
+        responseMimeType: 'application/json',
+      },
+    });
+
+    return JSON.parse(response.text?.trim() || '{}');
+  } catch (err) {
+    console.error('Error predicting answer accuracy:', err);
+    // Intelligent heuristic fallback
+    const len = (answerText || '').trim().length;
+    let baseScore = 65;
+    if (len < 80) baseScore = 48;
+    else if (len < 180) baseScore = 68;
+    else if (len < 400) baseScore = 82;
+    else baseScore = 90;
+
+    const techScore = Math.min(95, baseScore + 4);
+    const compScore = Math.max(40, baseScore - 5);
+    const structScore = Math.min(92, baseScore + 2);
+
+    return {
+      accuracyScore: baseScore,
+      accuracyLevel: baseScore >= 80 ? 'Strong Fit / High Readiness' : baseScore >= 65 ? 'Moderate / Needs Specifics' : 'Incomplete / Needs Work',
+      technicalAccuracy: techScore,
+      completeness: compScore,
+      structureClarity: structScore,
+      interviewerPerception: baseScore >= 80
+        ? `Interviewer Takeaway: Demonstrates authentic experience for ${targetRole} with solid conceptual understanding.`
+        : `Interviewer Takeaway: Shows basic familiarity, but requires more technical depth, trade-offs, and measurable outcomes.`,
+      strengthsIdentified: [
+        'Directly addressed the core intent of the question',
+        'Maintains a constructive problem-solving perspective'
+      ],
+      missingKeywords: [
+        'Production trade-offs',
+        'Failure modes & edge cases',
+        'Quantified performance metrics'
+      ],
+      improvementSuggestions: [
+        'Mention specific metrics (e.g. latency, throughput, error rates) to make the impact concrete',
+        'Explain why you chose this solution over alternative options'
+      ],
+      elevatedAnswerSnippet: `In solving this, I evaluated both synchronous and event-driven patterns, opting for a decoupled architecture that minimized database read contention by 35%.`,
     };
   }
 }

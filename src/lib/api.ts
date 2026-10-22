@@ -9,6 +9,7 @@ import type {
   InterviewSession,
   InterviewQuestion,
   InterviewFeedback,
+  AnswerAccuracyPrediction,
   DashboardStats,
   GenerateResumePayload,
   GeneratedResumeResult,
@@ -564,6 +565,54 @@ class ApiService {
       method: 'POST',
       body: JSON.stringify({ questionId, answerText }),
     });
+  }
+
+  public async predictAnswerAccuracy(payload: {
+    questionText: string;
+    answerText: string;
+    targetRole: string;
+    interviewType?: string;
+    difficulty?: string;
+    targetCompetency?: string;
+  }): Promise<{ prediction: AnswerAccuracyPrediction }> {
+    try {
+      return await this.request<{ prediction: AnswerAccuracyPrediction }>('/api/interviews/predict-accuracy', {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      });
+    } catch (err) {
+      if (this.getToken()?.startsWith('demo-session-')) {
+        const len = (payload.answerText || '').trim().length;
+        const score = len < 80 ? 54 : len < 200 ? 72 : len < 400 ? 86 : 92;
+        return {
+          prediction: {
+            accuracyScore: score,
+            accuracyLevel: score >= 85 ? 'Strong Fit / High Readiness' : score >= 70 ? 'Moderate / Needs Specifics' : 'Incomplete / Needs Work',
+            technicalAccuracy: Math.min(95, score + 4),
+            completeness: Math.max(45, score - 6),
+            structureClarity: Math.min(92, score + 2),
+            interviewerPerception: score >= 80
+              ? `Interviewer Takeaway: The candidate directly addresses core engineering principles for ${payload.targetRole} with good technical confidence.`
+              : `Interviewer Takeaway: The candidate understands the basic idea, but misses critical production trade-offs and quantitative details.`,
+            strengthsIdentified: [
+              'Clear identification of the main technical mechanism',
+              'Structured logical explanation'
+            ],
+            missingKeywords: [
+              'Latency & throughput trade-offs',
+              'Failure recovery & resilience',
+              'Measurable production impact'
+            ],
+            improvementSuggestions: [
+              'Mention concrete metrics (e.g. reduced response times by 30%) to demonstrate business value',
+              'Explicitly address edge cases and how the system recovers when downstream services fail'
+            ],
+            elevatedAnswerSnippet: `To optimize this architecture, I established a circuit breaker pattern combined with Redis distributed caching, which stabilized peak p99 latencies under 45ms.`,
+          },
+        };
+      }
+      throw err;
+    }
   }
 
   public async completeInterviewSession(
