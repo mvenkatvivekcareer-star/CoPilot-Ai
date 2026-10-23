@@ -12,7 +12,6 @@ import { JobMatchingPage } from './pages/job-matching/JobMatchingPage';
 import { SkillGapCoachPage } from './pages/skill-gaps/SkillGapCoachPage';
 import { InterviewStudioPage } from './pages/interviews/InterviewStudioPage';
 import { InterviewHistoryPage } from './pages/interviews/InterviewHistoryPage';
-import { SupabaseViewerPage } from './pages/supabase/SupabaseViewerPage';
 import { SettingsPage } from './pages/settings/SettingsPage';
 import { CareerDigitalTwinPage } from './pages/career-twin/CareerDigitalTwinPage';
 import { LoadingSpinner } from './components/common/LoadingSpinner';
@@ -72,7 +71,6 @@ export default function App() {
             <Route path="career-twin" element={<CareerDigitalTwinPage />} />
             <Route path="interviews" element={<InterviewStudioPage />} />
             <Route path="interviews/history" element={<InterviewHistoryPage />} />
-            <Route path="supabase" element={<SupabaseViewerPage />} />
             <Route path="settings" element={<SettingsPage />} />
           </Route>
 

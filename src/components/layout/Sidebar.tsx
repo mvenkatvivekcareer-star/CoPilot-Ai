@@ -32,7 +32,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     { name: 'Skill-Gap Coach', path: '/app/skill-gaps', icon: Sparkles },
     { name: 'Mock Interview Studio', path: '/app/interviews', icon: Bot, badge: 'Adaptive' },
     { name: 'Interview History', path: '/app/interviews/history', icon: History },
-    { name: 'Supabase Data', path: '/app/supabase', icon: Database, badge: 'Live' },
     { name: 'Profile & Settings', path: '/app/settings', icon: Settings },
   ];
 

@@ -35,7 +35,7 @@ class SupabaseService {
       this.config.url = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || '';
     }
     if (!this.config.key) {
-      this.config.key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY || '';
+      this.config.key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || '';
     }
   }
 
@@ -122,13 +122,12 @@ class SupabaseService {
     }
 
     const tableNames = [
+      'candidate_profiles',
+      'resumes_and_analyses',
+      'jobs_and_matches',
+      'mock_interviews',
       'profiles',
       'resumes',
-      'resume_analyses',
-      'jobs',
-      'job_matches',
-      'skill_goals',
-      'interview_sessions',
     ];
 
     const tablesStatus: Record<string, { exists: boolean; count: number; error?: string }> = {};
@@ -171,12 +170,12 @@ class SupabaseService {
       tables: tablesStatus,
       message: anyTableSuccess
         ? 'Connected to Supabase PostgreSQL database.'
-        : 'Credentials accepted, but tables not found. Please execute the SQL migration in Supabase SQL editor.',
+        : 'Credentials accepted. Run the 4-table SQL schema in your Supabase SQL editor.',
     };
   }
 
   /**
-   * Syncs all candidate data from the local store into Supabase tables
+   * Syncs all candidate data from local store into Supabase's 4 consolidated tables
    */
   public async syncAllData(userId: string): Promise<{
     success: boolean;
@@ -189,98 +188,163 @@ class SupabaseService {
 
     const errors: string[] = [];
     const syncedCounts: Record<string, number> = {
-      profiles: 0,
-      resumes: 0,
-      resume_analyses: 0,
-      jobs: 0,
-      job_matches: 0,
-      skill_goals: 0,
-      interview_sessions: 0,
-      interview_questions: 0,
-      interview_answers: 0,
-      interview_feedback: 0,
-      activity_events: 0,
+      candidate_profiles: 0,
+      resumes_and_analyses: 0,
+      jobs_and_matches: 0,
+      mock_interviews: 0,
     };
 
-    // 1. Sync Profile
+    // 1. Sync candidate_profiles (Profiles + Activity Events)
     const profile = db.getProfile(userId);
+    const activity = db.getRecentActivity(userId, 50);
     if (profile) {
-      const { error } = await this.client.from('profiles').upsert([profile]);
-      if (error) errors.push(`profiles: ${error.message}`);
-      else syncedCounts.profiles += 1;
-    }
+      const payload = {
+        id: profile.id,
+        full_name: profile.full_name,
+        education_level: profile.education_level,
+        current_role: profile.current_role,
+        experience_level: profile.experience_level,
+        target_roles: profile.target_roles || [],
+        preferred_skills: profile.preferred_skills || [],
+        career_goals: profile.career_goals,
+        onboarding_completed: profile.onboarding_completed,
+        readiness_score: profile.readiness_score,
+        activity_events: activity || [],
+        updated_at: new Date().toISOString(),
+      };
 
-    // 2. Sync Resumes
-    const resumes = db.getResumes(userId);
-    if (resumes.length > 0) {
-      const { error } = await this.client.from('resumes').upsert(resumes);
-      if (error) errors.push(`resumes: ${error.message}`);
-      else syncedCounts.resumes += resumes.length;
-    }
-
-    // 3. Sync Resume Analyses
-    for (const r of resumes) {
-      const analysis = db.getResumeAnalysis(r.id, userId);
-      if (analysis) {
-        const { error } = await this.client.from('resume_analyses').upsert([analysis]);
-        if (error) errors.push(`resume_analyses: ${error.message}`);
-        else syncedCounts.resume_analyses += 1;
+      // Try 4-table candidate_profiles first, fallback to legacy profiles
+      const { error: profErr } = await this.client.from('candidate_profiles').upsert([payload]);
+      if (profErr) {
+        // Fallback to legacy profiles
+        const { error: legErr } = await this.client.from('profiles').upsert([profile]);
+        if (legErr) errors.push(`profiles: ${legErr.message}`);
+        else syncedCounts.candidate_profiles += 1;
+      } else {
+        syncedCounts.candidate_profiles += 1;
       }
     }
 
-    // 4. Sync Jobs
+    // 2. Sync resumes_and_analyses (Resumes + Resume Analyses)
+    const resumes = db.getResumes(userId);
+    for (const r of resumes) {
+      const analysis = db.getResumeAnalysis(r.id, userId);
+      const payload = {
+        id: r.id,
+        user_id: r.user_id,
+        file_name: r.file_name,
+        file_size: r.file_size,
+        storage_path: r.storage_path,
+        mime_type: r.mime_type,
+        raw_text: r.raw_text,
+        ats_score: analysis?.ats_score || 0,
+        parsed_profile: analysis?.parsed_profile || {},
+        strengths: analysis?.strengths || [],
+        weaknesses: analysis?.weaknesses || [],
+        suggestions: analysis?.suggestions || [],
+        quantified_improvements: analysis?.quantified_improvements || [],
+        score_breakdown: analysis?.score_breakdown || {},
+        created_at: r.created_at,
+        updated_at: r.updated_at,
+      };
+
+      const { error: resErr } = await this.client.from('resumes_and_analyses').upsert([payload]);
+      if (resErr) {
+        // Fallback to legacy resumes
+        const { error: legErr } = await this.client.from('resumes').upsert([r]);
+        if (legErr) errors.push(`resumes: ${legErr.message}`);
+        else syncedCounts.resumes_and_analyses += 1;
+      } else {
+        syncedCounts.resumes_and_analyses += 1;
+      }
+    }
+
+    // 3. Sync jobs_and_matches (Jobs + Job Matches + Skill Goals)
     const jobs = db.getJobs(userId);
-    if (jobs.length > 0) {
-      const { error } = await this.client.from('jobs').upsert(jobs);
-      if (error) errors.push(`jobs: ${error.message}`);
-      else syncedCounts.jobs += jobs.length;
+    for (const j of jobs) {
+      const match = db.getJobMatches(userId).find(m => m.job_id === j.id);
+      const goals = db.getSkillGoals(userId).filter(g => g.job_id === j.id || !g.job_id);
+      const payload = {
+        id: j.id,
+        user_id: j.user_id,
+        title: j.title,
+        company: j.company,
+        description: j.description,
+        parsed_requirements: j.parsed_requirements || {},
+        match_analysis: match ? {
+          match_score: match.match_score,
+          resume_id: match.resume_id,
+          evidenced_skills: match.evidenced_skills,
+          missing_skills: match.missing_skills,
+          partial_skills: match.partial_skills,
+          experience_alignment: match.experience_alignment,
+          scoring_breakdown: match.scoring_breakdown,
+          recommended_improvements: match.recommended_improvements,
+        } : null,
+        skill_goals: goals || [],
+        created_at: j.created_at,
+      };
+
+      const { error: jobErr } = await this.client.from('jobs_and_matches').upsert([payload]);
+      if (jobErr) {
+        const { error: legErr } = await this.client.from('jobs').upsert([j]);
+        if (legErr) errors.push(`jobs: ${legErr.message}`);
+        else syncedCounts.jobs_and_matches += 1;
+      } else {
+        syncedCounts.jobs_and_matches += 1;
+      }
     }
 
-    // 5. Sync Job Matches
-    const matches = db.getJobMatches(userId);
-    if (matches.length > 0) {
-      // Clean computed UI fields before Supabase upsert
-      const cleaned = matches.map(m => ({
-        id: m.id,
-        user_id: m.user_id,
-        resume_id: m.resume_id,
-        job_id: m.job_id,
-        match_score: m.match_score,
-        evidenced_skills: m.evidenced_skills,
-        missing_skills: m.missing_skills,
-        partial_skills: m.partial_skills,
-        experience_alignment: m.experience_alignment,
-        scoring_breakdown: m.scoring_breakdown,
-        recommended_improvements: m.recommended_improvements,
-        created_at: m.created_at,
-      }));
-      const { error } = await this.client.from('job_matches').upsert(cleaned);
-      if (error) errors.push(`job_matches: ${error.message}`);
-      else syncedCounts.job_matches += matches.length;
-    }
-
-    // 6. Sync Skill Goals
-    const goals = db.getSkillGoals(userId);
-    if (goals.length > 0) {
-      const { error } = await this.client.from('skill_goals').upsert(goals);
-      if (error) errors.push(`skill_goals: ${error.message}`);
-      else syncedCounts.skill_goals += goals.length;
-    }
-
-    // 7. Sync Interview Sessions
+    // 4. Sync mock_interviews (Sessions + Questions + Answers + Feedback)
     const sessions = db.getInterviewSessions(userId);
-    if (sessions.length > 0) {
-      const { error } = await this.client.from('interview_sessions').upsert(sessions);
-      if (error) errors.push(`interview_sessions: ${error.message}`);
-      else syncedCounts.interview_sessions += sessions.length;
-    }
+    for (const s of sessions) {
+      const full = db.getInterviewSession(s.id, userId);
+      const qaInteractions = (full?.questions || []).map(q => {
+        const ans = full?.answers.find(a => a.question_id === q.id);
+        const fb = full?.feedback.find(f => f.answer_id === ans?.id);
+        return {
+          question_number: q.question_number,
+          question_id: q.id,
+          question_text: q.question_text,
+          target_competency: q.target_competency,
+          context_clue: q.context_clue,
+          answer_text: ans?.answer_text || '',
+          score: fb?.score || 0,
+          what_went_well: fb?.what_went_well || '',
+          what_to_improve: fb?.what_to_improve || '',
+          missing_points: fb?.missing_points || [],
+          suggested_approach: fb?.suggested_approach || '',
+          star_breakdown: fb?.star_breakdown || {},
+        };
+      });
 
-    // 8. Sync Activity
-    const activity = db.getRecentActivity(userId, 50);
-    if (activity.length > 0) {
-      const { error } = await this.client.from('activity_events').upsert(activity);
-      if (error) errors.push(`activity_events: ${error.message}`);
-      else syncedCounts.activity_events += activity.length;
+      const payload = {
+        id: s.id,
+        user_id: s.user_id,
+        resume_id: s.resume_id,
+        job_id: s.job_id,
+        target_role: s.target_role,
+        interview_type: s.interview_type,
+        difficulty: s.difficulty,
+        total_questions: s.total_questions,
+        status: s.status,
+        overall_score: s.overall_score,
+        summary: s.summary,
+        strengths: s.strengths || [],
+        areas_to_improve: s.areas_to_improve || [],
+        qa_interactions: qaInteractions,
+        created_at: s.created_at,
+        completed_at: s.completed_at,
+      };
+
+      const { error: intErr } = await this.client.from('mock_interviews').upsert([payload]);
+      if (intErr) {
+        const { error: legErr } = await this.client.from('interview_sessions').upsert([s]);
+        if (legErr) errors.push(`interview_sessions: ${legErr.message}`);
+        else syncedCounts.mock_interviews += 1;
+      } else {
+        syncedCounts.mock_interviews += 1;
+      }
     }
 
     return {

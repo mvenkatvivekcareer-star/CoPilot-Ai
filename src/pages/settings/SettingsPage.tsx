@@ -228,14 +228,11 @@ export const SettingsPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="pt-2 flex justify-end">
-            <a
-              href="/app/supabase"
-              className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold text-xs rounded-xl shadow-md transition-all inline-flex items-center gap-1.5"
-            >
-              <Database className="w-3.5 h-3.5" />
-              <span>Launch Supabase Live Data Explorer</span>
-            </a>
+          <div className="p-3.5 bg-emerald-500/10 border border-emerald-500/25 rounded-xl text-emerald-300 text-xs flex items-center gap-2.5">
+            <Shield className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span>
+              All registration emails, profile credentials, and candidate records synchronize directly to your private Supabase server and are accessible exclusively in your Supabase admin console.
+            </span>
           </div>
         </div>
       </Card>

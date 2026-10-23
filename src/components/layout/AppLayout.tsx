@@ -28,11 +28,8 @@ export const AppLayout: React.FC = () => {
     if (path.includes('/app/interviews')) {
       return { title: 'AI Mock Interview Studio', subtitle: 'Adaptive questioning, real-time rubric feedback and personalized follow-ups' };
     }
-    if (path.includes('/app/supabase')) {
-      return { title: 'Supabase Database & Live Data Explorer', subtitle: 'Inspect live PostgreSQL tables, synchronize candidate records & review RLS policies' };
-    }
     if (path.includes('/app/settings')) {
-      return { title: 'Account Settings & Integrations', subtitle: 'Profile preferences, Supabase RLS policies and secure data controls' };
+      return { title: 'Account Settings & Data Privacy', subtitle: 'Profile preferences, secure database synchronization and privacy controls' };
     }
     return { title: 'CareerPilot AI', subtitle: 'Adaptive Recruitment Readiness Platform' };
   };
