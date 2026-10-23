@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
   Bot,
@@ -39,6 +39,10 @@ export const InterviewStudioPage: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Speech Recognition refs
+  const recognitionRef = useRef<any>(null);
+  const baseTextRef = useRef<string>('');
+
   // Setup options
   const [targetRole, setTargetRole] = useState(
     location.state?.targetRole || profile?.target_roles?.[0] || 'Software Engineer'
@@ -78,6 +82,14 @@ export const InterviewStudioPage: React.FC = () => {
         setSelectedResumeId(res.resumes[0].id);
       }
     }).catch(console.error);
+
+    return () => {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch {}
+      }
+    };
   }, []);
 
   // Text-to-Speech (reads question aloud)
@@ -102,32 +114,50 @@ export const InterviewStudioPage: React.FC = () => {
     }
 
     if (isListening) {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch {}
+      }
       setIsListening(false);
       return;
     }
 
     try {
+      baseTextRef.current = answerText;
       const recognition = new SpeechRecognition();
+      recognitionRef.current = recognition;
       recognition.continuous = true;
       recognition.interimResults = true;
       recognition.lang = 'en-US';
 
       recognition.onstart = () => setIsListening(true);
-      recognition.onend = () => setIsListening(false);
-      recognition.onerror = () => setIsListening(false);
+      recognition.onend = () => {
+        setIsListening(false);
+        recognitionRef.current = null;
+      };
+      recognition.onerror = () => {
+        setIsListening(false);
+        recognitionRef.current = null;
+      };
 
       recognition.onresult = (event: any) => {
-        let transcript = '';
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          transcript += event.results[i][0].transcript;
+        let sessionTranscript = '';
+        for (let i = 0; i < event.results.length; i++) {
+          sessionTranscript += event.results[i][0].transcript;
         }
-        setAnswerText(prev => prev + ' ' + transcript);
+        const base = baseTextRef.current.trim();
+        const combined = base
+          ? `${base} ${sessionTranscript.trim()}`
+          : sessionTranscript.trim();
+        setAnswerText(combined);
       };
 
       recognition.start();
     } catch (e) {
       console.error(e);
       setIsListening(false);
+      recognitionRef.current = null;
     }
   };
 
